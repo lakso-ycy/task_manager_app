@@ -1,8 +1,37 @@
+// lib/screens/login.dart
 import 'package:flutter/material.dart';
-import 'package:task_manager_app/screens/dashboard_screen.dart';
+import 'package:task_manager_app/screens/home_screen.dart';  // Import HomeScreen
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _login() {
+    // Cek validitas login (di sini Anda bisa menambah logika autentikasi)
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()), // Arahkan ke HomeScreen setelah login sukses
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +43,11 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Logo atau Ilustrasi
                 Image.asset(
-                  'assets/illustration.png', // Masukkan ilustrasi sesuai
+                  'assets/illustration.png', // Ganti dengan path ilustrasi Anda
                   height: 200,
                 ),
                 const SizedBox(height: 32),
-                // Judul Utama
                 const Text(
                   'Login Task Manager',
                   style: TextStyle(
@@ -31,50 +58,48 @@ class LoginPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
-                // Subjudul
                 const Text(
-                  'To keep connected with us please login with your personal information by email address and password',
+                  'To keep connected with us, please login with your personal information by email address and password.',
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
                 // Form Email
-                SizedBox(
-                  width: MediaQuery.of(context).size.width *
-                      0.85, // 85% dari layar
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Email Address',
-                      prefixIcon: const Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                TextField(
+                  controller: emailController,
+                  focusNode: emailFocusNode,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Email Address',
+                    prefixIcon: const Icon(Icons.email_outlined),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 // Form Password
-                SizedBox(
-                  width: MediaQuery.of(context).size.width *
-                      0.85, // 85% dari layar
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      prefixIcon: const Icon(Icons.lock_outline),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  focusNode: passwordFocusNode,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),
                 const SizedBox(height: 8),
-                // Lupa Password
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // Aksi untuk lupa password
+                      Navigator.pushNamed(
+                        context,
+                        '/forgot-password', // Navigasi ke halaman Forgot Password
+                      );
                     },
                     child: const Text(
                       'Forgot Password?',
@@ -85,26 +110,32 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 16),
                 // Tombol Log In
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const DashboardScreen(),
-                      ),
-                    );
-                  },
+                  onPressed: _login, // Panggil _login untuk berpindah ke HomeScreen
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 14),
-                    minimumSize: Size(MediaQuery.of(context).size.width * 0.85,
-                        48), // Lebar 85% dari layar
+                    minimumSize: Size(
+                      MediaQuery.of(context).size.width * 0.85,
+                      48,
+                    ),
                   ),
                   child: const Text(
                     'Log In Now',
                     style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Tombol Register
+                TextButton(
+                  onPressed: () {
+                    // Arahkan ke halaman Register jika diperlukan
+                  },
+                  child: const Text(
+                    "Don't have an account? Register",
+                    style: TextStyle(color: Colors.teal),
                   ),
                 ),
               ],

@@ -240,7 +240,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
                     child: ElevatedButton(
                       onPressed: _saveTask,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF00BFA6),
+                        backgroundColor: const Color(0xFF00C4B4), // Warna teal modern
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -249,6 +249,7 @@ class _AddEditTaskScreenState extends State<AddEditTaskScreen> {
                       child: const Text(
                         'Save Task',
                         style: TextStyle(
+                          color: Colors.white, // Teks putih
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
