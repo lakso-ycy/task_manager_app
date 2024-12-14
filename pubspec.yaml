@@ -32,6 +32,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  flutter_launcher_icons: "^0.14.2"
+  rename: ^3.0.2
   uuid: ^4.5.1
   intl: ^0.20.0
   fl_chart: ^0.69.2 # Menggunakan versi terbaru fl_chart
@@ -46,6 +48,27 @@ dev_dependencies:
 # package. See that file for information about deactivating specific lint
 # rules and activating additional ones.
   flutter_lints: ^4.0.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo.jpg"
+  min_sdk_android: 16 # android min sdk min:16, default 21
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/logo.jpg"
+  # web:
+  #   generate: true
+  #   image_path: "assets/calendar.png"
+  #   background_color: "#hexcode"
+  #   theme_color: "#hexcode"
+  # windows:
+  #   generate: true
+  #   image_path: "assets/calendar.png"
+  #   icon_size: 48 # min:48, max:256, default: 48
+  # macos:
+  #   generate: true
+  #   image_path: "assets/calendar.png"
+
 
 flutter:
   uses-material-design: true
